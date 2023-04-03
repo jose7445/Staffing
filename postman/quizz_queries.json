@@ -1,0 +1,22 @@
+/* INITIAL DATA */
+{
+    "id": "64201be84ccf34fae402c868",
+    "enabled": true,
+    "name": "Test aptitud Javascript Medio",
+    "category": "641f3483948c9d850f87116d",
+    "description": "Descripción del test",
+    "quizzLanguage": "es"
+},
+/* CONDITIONAL DATA */
+{
+    "id": "64201be84ccf34fae402c868",
+    "security": {
+        "level": "warning",
+        "attemptsByUser": 2,            
+        "warningAttempts": 3,
+	},
+	"startPage": {
+	        "instructions": "Instrucciones",  
+	        "consent": "Aviso legal...",  
+	}
+}

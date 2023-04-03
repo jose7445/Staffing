@@ -1,0 +1,15 @@
+{
+    "question": "Primera pregunta",
+    "type": "single-choice",
+    "questionCategory": "generica",
+    "correctPoints": 1,
+    "incorrectPoints": 0,
+    "showQuestionPoints": false,
+    "forceResponse": true,
+    "terminateOnWrong": false,
+    "answers": [
+    	{ "isCorrect": true, "answer": "Respuesta correcta" },
+    	{ "isCorrect": false, "answer": "Respuesta incorrecta: 1" }
+    	{ "isCorrect": false, "answer": "Respuesta incorrecta 2" }
+    ]
+}
