@@ -1,72 +1,84 @@
 <template>
-  <div
-    class="q-pa-lg bg-white rounded-borders shadow-1 shadow-up-1"
-    style="width: 450px"
-  >
-    <div class="text-h4 text-center">Staffing</div>
-    <div class="text-h6 text-center">Sign into Your account</div>
+  <q-card square bordered class="q-pa-lg shadow-1">
+    <div class="text-h3 q-pa-md text-center text-bold">Hello!</div>
+    <div class="text-h4 text-center">Sigin into Your account</div>
+    <q-card-section>
+      <q-form class="q-gutter-y-md q-mt-sm" @submit.prevent="userLogin">
+        <q-input
+          outlined
+          clearable
+          type="email"
+          clear-icon="close"
+          v-model="email"
+          label="email"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Requerido']"
+        >
+          <template v-slot:prepend>
+            <q-icon name="email" />
+          </template>
+        </q-input>
 
-    <q-form @submit="onSubmit" class="q-gutter-lg q-mt-xl">
-      <q-input
-        outlined
-        v-model="name"
-        label="Email"
-        clearable
-        clear-icon="close"
-      />
+        <q-input
+          outlined
+          clearable
+          clear-icon="close"
+          type="password"
+          label="password"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || 'Requerido']"
+          v-model="password"
+        >
+          <template v-slot:prepend>
+            <q-icon name="password" />
+          </template>
+        </q-input>
 
-      <q-input outlined type="password" v-model="age" label="Contraseña" />
+        <q-btn
+          unelevated
+          color="primary"
+          type="submit"
+          size="md"
+          class="full-width text-bold"
+          label="Login"
+        />
+      </q-form>
+    </q-card-section>
 
-      <div>
-        <q-btn label="Submit" type="submit" color="primary" />
-      </div>
-    </q-form>
-  </div>
+    <q-card-section class="text-center q-pa-none">
+      <p class="text-grey-6">Forgot password?</p>
+    </q-card-section>
+  </q-card>
 </template>
 
 <script>
-import useQuasar from "quasar/src/composables/use-quasar.js";
-import { ref } from "vue";
-
-export default {
-  setup() {
-    const $q = useQuasar();
-
-    const name = ref(null);
-    const age = ref(null);
-    const accept = ref(false);
-
+export default defineNuxtComponent({
+  data() {
     return {
-      name,
-      age,
-      accept,
-
-      onSubmit() {
-        if (accept.value !== true) {
-          $q.notify({
-            color: "red-5",
-            textColor: "white",
-            icon: "warning",
-            message: "You need to accept the license and terms first",
-          });
-        } else {
-          $q.notify({
-            color: "green-4",
-            textColor: "white",
-            icon: "cloud_done",
-            message: "Submitted",
-          });
-        }
-      },
-
-      onReset() {
-        name.value = null;
-        age.value = null;
-        accept.value = false;
-      },
+      text: "",
+      email: "",
+      password: "",
     };
   },
-};
+
+  methods: {
+    async userLogin() {
+      const data = await $fetch("/api/staffing/members/signin", {
+        method: "POST",
+        body: {
+          email: this.email,
+          password: this.password,
+        },
+      });
+      this.$router.push("/");
+      console.log(data);
+    },
+  },
+});
 </script>
 
-<style scoped></style>
+<style scoped>
+.q-card {
+  width: 500px;
+}
+</style>
