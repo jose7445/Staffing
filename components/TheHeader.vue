@@ -17,15 +17,31 @@
         <q-item
           clickable
           v-ripple
-          :active="link === 'inbox'"
-          @click="link = 'inbox'"
+          :active="link === '/'"
+          @click="link = '/'"
           active-class="my-menu-link"
+          to="/"
         >
           <q-item-section avatar>
-            <q-icon name="person" />
+            <q-icon name="home" />
           </q-item-section>
 
-          <q-item-section>Candidates</q-item-section>
+          <q-item-section>Home</q-item-section>
+        </q-item>
+
+        <q-item
+          clickable
+          v-ripple
+          :active="link === '/staffing'"
+          @click="link = '/staffing'"
+          active-class="my-menu-link"
+          to="/staffing"
+        >
+          <q-item-section avatar>
+            <q-icon name="groups" />
+          </q-item-section>
+
+          <q-item-section>Miembros Staffing</q-item-section>
         </q-item>
 
         <q-item
@@ -39,7 +55,7 @@
             <q-icon name="person" />
           </q-item-section>
 
-          <q-item-section>Staffing</q-item-section>
+          <q-item-section>List 2</q-item-section>
         </q-item>
 
         <q-item
@@ -53,7 +69,7 @@
             <q-icon name="person" />
           </q-item-section>
 
-          <q-item-section>Candidates</q-item-section>
+          <q-item-section>List 3</q-item-section>
         </q-item>
 
         <q-separator spaced />
@@ -69,7 +85,7 @@
             <q-icon name="person" />
           </q-item-section>
 
-          <q-item-section>Staffing</q-item-section>
+          <q-item-section>List 4</q-item-section>
         </q-item>
 
         <q-item
@@ -83,7 +99,7 @@
             <q-icon name="person" />
           </q-item-section>
 
-          <q-item-section>Candidates</q-item-section>
+          <q-item-section>List 5</q-item-section>
         </q-item>
       </q-list>
     </div>

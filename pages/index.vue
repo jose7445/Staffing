@@ -1,8 +1,5 @@
 <template>
   <div class="container">
-    <h1 class="text-center">Staffing</h1>
-    <div>
-      <MembersTable />
-    </div>
+    <h1 class="text-center">Welcome home</h1>
   </div>
 </template>

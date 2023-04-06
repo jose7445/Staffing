@@ -3,7 +3,7 @@
     <div class="text-h3 q-pa-md text-center text-bold">Hello!</div>
     <div class="text-h4 text-center">Sigin into Your account</div>
     <q-card-section>
-      <q-form class="q-gutter-y-md q-mt-sm" @submit.prevent="userLogin">
+      <q-form class="q-gutter-y-md q-mt-sm" @submit.prevent="onSubmit">
         <q-input
           outlined
           clearable
@@ -52,27 +52,33 @@
 </template>
 
 <script>
-export default defineNuxtComponent({
-  data() {
-    return {
-      text: "",
-      email: "",
-      password: "",
-    };
-  },
+import { ref } from "vue";
 
-  methods: {
-    async userLogin() {
-      const data = await $fetch("/api/staffing/members/signin", {
-        method: "POST",
-        body: {
-          email: this.email,
-          password: this.password,
-        },
-      });
-      this.$router.push("/");
-      console.log(data);
-    },
+export default defineNuxtComponent({
+  setup() {
+    const text = ref("");
+    const email = ref("");
+    const password = ref("");
+
+    const onSubmit = async () => {
+      let formData = { email: email.value, password: password.value };
+      try {
+        const data = await $fetch("/api/staffing/members/signin", {
+          method: "POST",
+          body: formData,
+        }); // this.$router.push("/");
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    return {
+      text,
+      email,
+      password,
+      onSubmit,
+    };
   },
 });
 </script>

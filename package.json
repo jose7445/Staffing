@@ -21,6 +21,7 @@
     "@types/mongoose": "^5.11.97",
     "dotenv": "^16.0.3",
     "quasar": "^2.11.10",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "vuex": "^4.0.2"
   }
 }
