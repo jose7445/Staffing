@@ -12,6 +12,7 @@
       title="Staffing Members"
       row-key="name"
     >
+      <!--Search action-->
       <template v-slot:top-right>
         <div class="row items-center justify-center q-gutter-x-md">
           <q-input
@@ -29,6 +30,7 @@
         </div>
       </template>
 
+      <!--Actions Table-->
       <template v-slot:body-cell-action="props">
         <q-td :props="props">
           <div class="row justify-evenly">
@@ -37,9 +39,19 @@
               flat
               rounded
               color="primary"
+              field="see"
+              icon="visibility"
+              @click="showVisivility(props)"
+            ></q-btn>
+
+            <q-btn
+              dense
+              flat
+              rounded
+              color="primary"
               field="edit"
               icon="edit"
-              @click="showModal"
+              @click="showModal(props)"
             ></q-btn>
 
             <q-btn
@@ -57,8 +69,13 @@
     </q-table>
   </div>
 
+  <q-dialog v-model="visibility">
+    <ViewMember :membersId="membersId" />
+  </q-dialog>
+
+  <!--Update member-->
   <q-dialog v-model="opened">
-    <q-card style="width: 800px; max-width: 60vw; max-height: 550px">
+    <q-card style="width: 800px; max-width: 60vw; max-height: 510px">
       <q-card-section>
         <q-btn
           round
@@ -73,42 +90,64 @@
       </q-card-section>
       <q-separator inset></q-separator>
       <q-card-section class="q-pt-md">
-        <q-form class="q-gutter-md">
+        <q-form class="q-gutter-md" @submit.prevent="updateMember">
           <q-list>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Department</q-item-label>
-                <q-input dense outlined v-model="users.ka_department"></q-input>
+                <q-input filled label="Id" v-model="editForm.id"></q-input>
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Oficina</q-item-label>
-                <q-input dense outlined v-model="users.office" />
+                <q-input filled label="name" v-model="editForm.name" />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Nombre</q-item-label>
-                <q-input dense outlined v-model="users.name" />
+                <q-input filled label="lastname" v-model="editForm.lastname" />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Apellidos</q-item-label>
-                <q-input dense outlined v-model="users.lastname" />
+                <q-input filled label="office" v-model="editForm.office" />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Stage</q-item-label>
-                <q-input dense outlined v-model="users.stage" />
+                <q-input
+                  filled
+                  label="employedId"
+                  v-model="editForm.employedId"
+                />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-item-label class="q-pb-xs">Email</q-item-label>
-                <q-input dense outlined v-model="users.companyEmail" />
+                <q-input filled label="Email" v-model="editForm.companyEmail" />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input filled label="Password" v-model="editForm.password" />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input
+                  filled
+                  label="personalData"
+                  v-model="editForm.personalData"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input filled label="security" v-model="editForm.security" />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input filled label="staffing" v-model="editForm.staffing" />
               </q-item-section>
             </q-item>
 
@@ -122,6 +161,7 @@
                   v-close-popup
                 ></q-btn>
                 <q-btn
+                  type="submit"
                   unelevated
                   label="Enviar"
                   color="primary"
@@ -136,8 +176,9 @@
     </q-card>
   </q-dialog>
 
+  <!--Add member-->
   <q-dialog v-model="add">
-    <q-card style="width: 800px; max-width: 60vw; max-height: 550px">
+    <q-card style="width: 800px; max-width: 60vw; max-height: auto">
       <q-card-section>
         <q-btn
           round
@@ -183,21 +224,53 @@ const columns = [
   { name: "action", label: "Action", field: "action", align: "left" },
 ];
 
+import ViewMember from "./ViewMember.vue";
 export default defineNuxtComponent({
+  components: { ViewMember },
   setup() {
     const opened = ref(false);
     const add = ref(false);
-    const editForm = ref([]);
-    const selected = ref([]);
+    const visibility = ref(false);
+    const editForm = ref({});
+    const membersId = ref("");
 
     // Show update member modal
-    function showModal() {
+    function showModal(props) {
       opened.value = true;
+      const object = {
+        id: props.row.id,
+        // ka_department: props.row.ka_department,
+        name: props.row.name,
+        lastname: props.row.lastname,
+        office: props.row.office,
+        employedId: props.row.employedId,
+        companyEmail: props.row.companyEmail,
+        password: props.row.password,
+        personalData: props.row.personalData,
+        security: props.row.security,
+        staffing: props.row.staffing,
+      };
+      editForm.value = object;
     }
 
     // Show add member modal
     function showAdd() {
       add.value = true;
+    }
+
+    // Show add member modal
+    function showVisivility(props) {
+      visibility.value = true;
+      membersId.value = props.row.id;
+      // console.log("id", membersId);
+    }
+
+    //Function to update a member
+    async function updateMember() {
+      return await $fetch("/api/staffing/members/", {
+        method: "PUT",
+        body: editForm.value,
+      });
     }
 
     // Function to delete a member
@@ -216,14 +289,22 @@ export default defineNuxtComponent({
       filter: ref(""),
       opened,
       add,
+      editForm,
+      visibility,
+      membersId: ref(membersId),
       showModal,
       showAdd,
-      editForm,
+      showVisivility,
       deleteMembers,
-      selected,
+      updateMember,
     };
   },
 
+  // data() {
+  //   return {
+  //     staffData: this.editForm,
+  //   };
+  // },
   // Function to get all members
   async asyncData() {
     const users = await $fetch("/api/staffing/members");
