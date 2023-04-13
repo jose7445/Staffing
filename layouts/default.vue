@@ -5,5 +5,3 @@
     <TheFooter />
   </q-layout>
 </template>
-
-<style></style>

@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <div class="q-mt-xl">
-      <MembersTable />
-    </div>
+  <div class="q-mt-xl">
+    <MembersTable />
   </div>
 </template>

@@ -3,11 +3,11 @@
     <q-table
       flat
       bordered
-      :rows="users"
+      :rows="members"
       :columns="columns"
       class="my-sticky-header-table"
       table-header-class="text-bold"
-      separator="vertical"
+      separator="cell"
       :filter="filter"
       title="Staffing Members"
       row-key="name"
@@ -16,17 +16,24 @@
       <template v-slot:top-right>
         <div class="row items-center justify-center q-gutter-x-md">
           <q-input
+            bg-color="white"
             outlined
             dense
-            debounce="300"
+            debounce="200"
             v-model="filter"
-            placeholder="Search"
+            placeholder="Buscar miembro"
           >
             <template v-slot:append>
               <q-icon name="search" />
             </template>
           </q-input>
-          <q-btn round color="primary" icon="add" size="sm" @click="showAdd" />
+          <q-btn
+            round
+            color="primary"
+            icon="add"
+            size="sm"
+            @click="showAddMember"
+          />
         </div>
       </template>
 
@@ -37,27 +44,27 @@
             <q-btn
               dense
               flat
-              rounded
+              round
               color="primary"
               field="see"
               icon="visibility"
-              @click="showVisivility(props)"
+              @click="viewMember(props)"
             ></q-btn>
 
             <q-btn
               dense
               flat
-              rounded
+              round
               color="primary"
               field="edit"
               icon="edit"
-              @click="showModal(props)"
+              @click="showModalUpdate(props)"
             ></q-btn>
 
             <q-btn
               dense
               flat
-              rounded
+              round
               color="primary"
               field="delete"
               icon="delete"
@@ -69,13 +76,14 @@
     </q-table>
   </div>
 
+  <!--Card member by ID-->
   <q-dialog v-model="visibility">
-    <ViewMember :membersId="membersId" />
+    <CardMember :membersId="membersId" />
   </q-dialog>
 
   <!--Update member-->
   <q-dialog v-model="opened">
-    <q-card style="width: 800px; max-width: 60vw; max-height: 510px">
+    <q-card style="width: 800px; max-width: 100vw; max-height: auto">
       <q-card-section>
         <q-btn
           round
@@ -94,28 +102,44 @@
           <q-list>
             <q-item>
               <q-item-section>
-                <q-input filled label="Id" v-model="editForm.id"></q-input>
+                <q-input
+                  dense
+                  outlined
+                  label="Id"
+                  v-model="editForm.id"
+                ></q-input>
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-input filled label="name" v-model="editForm.name" />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-input filled label="lastname" v-model="editForm.lastname" />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-input filled label="office" v-model="editForm.office" />
+                <q-input dense outlined label="name" v-model="editForm.name" />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
                 <q-input
-                  filled
+                  dense
+                  outlined
+                  label="lastname"
+                  v-model="editForm.lastname"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input
+                  dense
+                  outlined
+                  label="office"
+                  v-model="editForm.office"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input
+                  dense
+                  outlined
                   label="employedId"
                   v-model="editForm.employedId"
                 />
@@ -123,18 +147,29 @@
             </q-item>
             <q-item>
               <q-item-section>
-                <q-input filled label="Email" v-model="editForm.companyEmail" />
-              </q-item-section>
-            </q-item>
-            <q-item>
-              <q-item-section>
-                <q-input filled label="Password" v-model="editForm.password" />
+                <q-input
+                  dense
+                  outlined
+                  label="Email"
+                  v-model="editForm.companyEmail"
+                />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
                 <q-input
-                  filled
+                  dense
+                  outlined
+                  label="Password"
+                  v-model="editForm.password"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item>
+              <q-item-section>
+                <q-input
+                  dense
+                  outlined
                   label="personalData"
                   v-model="editForm.personalData"
                 />
@@ -142,21 +177,31 @@
             </q-item>
             <q-item>
               <q-item-section>
-                <q-input filled label="security" v-model="editForm.security" />
+                <q-input
+                  dense
+                  outlined
+                  label="security"
+                  v-model="editForm.security"
+                />
               </q-item-section>
             </q-item>
             <q-item>
               <q-item-section>
-                <q-input filled label="staffing" v-model="editForm.staffing" />
+                <q-input
+                  dense
+                  outlined
+                  label="staffing"
+                  v-model="editForm.staffing"
+                />
               </q-item-section>
             </q-item>
 
             <q-card-section class="q-pb-none">
               <q-card-actions align="right" class="q-pa-none">
                 <q-btn
-                  unelevated
+                  flat
                   label="Cancelar"
-                  color="primary"
+                  color="black"
                   size="md"
                   v-close-popup
                 ></q-btn>
@@ -178,7 +223,7 @@
 
   <!--Add member-->
   <q-dialog v-model="add">
-    <q-card style="width: 800px; max-width: 60vw; max-height: auto">
+    <q-card style="width: 800px; max-width: 100vw; max-height: auto">
       <q-card-section>
         <q-btn
           round
@@ -201,6 +246,7 @@
 
 <script>
 import { ref } from "vue";
+import useQuasar from "quasar/src/composables/use-quasar.js";
 
 const columns = [
   {
@@ -224,22 +270,21 @@ const columns = [
   { name: "action", label: "Action", field: "action", align: "left" },
 ];
 
-import ViewMember from "./ViewMember.vue";
 export default defineNuxtComponent({
-  components: { ViewMember },
   setup() {
     const opened = ref(false);
     const add = ref(false);
     const visibility = ref(false);
     const editForm = ref({});
-    const membersId = ref("");
+    const membersId = ref([]);
+    const $q = useQuasar();
 
-    // Show update member modal
-    function showModal(props) {
+    // Show update member modal and define object
+    function showModalUpdate(props) {
       opened.value = true;
-      const object = {
+      const objectMembers = {
         id: props.row.id,
-        // ka_department: props.row.ka_department,
+        ka_department: props.row.ka_department,
         name: props.row.name,
         lastname: props.row.lastname,
         office: props.row.office,
@@ -250,38 +295,87 @@ export default defineNuxtComponent({
         security: props.row.security,
         staffing: props.row.staffing,
       };
-      editForm.value = object;
+      editForm.value = objectMembers;
     }
 
     // Show add member modal
-    function showAdd() {
+    function showAddMember() {
       add.value = true;
     }
 
-    // Show add member modal
-    function showVisivility(props) {
+    // Function to view member by ID
+    async function viewMember(props) {
       visibility.value = true;
-      membersId.value = props.row.id;
-      // console.log("id", membersId);
+      const data = await $fetch(`/api/staffing/members/${props.row.id}`);
+      membersId.value = data;
     }
 
     //Function to update a member
     async function updateMember() {
-      return await $fetch("/api/staffing/members/", {
-        method: "PUT",
-        body: editForm.value,
-      });
+      $q.dialog({
+        message: "Quieres eliminar este miembro de la tabla?",
+        cancel: {
+          label: "Cancelar",
+          flat: true,
+        },
+        persistent: true,
+        ok: {
+          label: "OK",
+          color: "primary",
+          unelevated: true,
+        },
+      })
+        .onOk(async () => {
+          return await $fetch("/api/staffing/members/", {
+            method: "PUT",
+            body: editForm.value,
+          });
+        })
+        .onOk(() => {
+          location.reload(true);
+        })
+        .onCancel(() => {
+          // console.log('>>>> Cancel')
+        })
+        .onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        });
     }
 
     // Function to delete a member
-    async function deleteMembers(props) {
+    function deleteMembers(props) {
       const id = props.row.id;
-      return await $fetch("/api/staffing/members/delete", {
-        method: "PUT",
-        body: {
-          id: id,
+      $q.dialog({
+        message: "Quieres eliminar este miembro de la tabla?",
+        cancel: {
+          label: "Cancelar",
+          flat: true,
         },
-      });
+        persistent: true,
+        ok: {
+          label: "OK",
+          color: "primary",
+          unelevated: true,
+          focus: false,
+        },
+      })
+        .onOk(async () => {
+          return await $fetch("/api/staffing/members/delete", {
+            method: "PUT",
+            body: {
+              id: id,
+            },
+          });
+        })
+        .onOk(() => {
+          location.reload();
+        })
+        .onCancel(() => {
+          // console.log('>>>> Cancel')
+        })
+        .onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        });
     }
 
     return {
@@ -291,29 +385,23 @@ export default defineNuxtComponent({
       add,
       editForm,
       visibility,
-      membersId: ref(membersId),
-      showModal,
-      showAdd,
-      showVisivility,
+      membersId,
+      showModalUpdate,
+      showAddMember,
+      viewMember,
       deleteMembers,
       updateMember,
     };
   },
 
-  // data() {
-  //   return {
-  //     staffData: this.editForm,
-  //   };
-  // },
   // Function to get all members
   async asyncData() {
-    const users = await $fetch("/api/staffing/members");
-    return { users };
+    const members = await $fetch("/api/staffing/members");
+    return { members };
   },
-  // mounted() {
-  //   console.log(this.users);
-  // },
 });
+
+refreshNuxtData();
 </script>
 
 <style lang="sass">

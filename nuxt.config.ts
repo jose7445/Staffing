@@ -5,12 +5,22 @@ export default defineNuxtConfig({
     kaDeparment: process.env.KA_DEPARTMENT,
     envType: "DEV",
   },
+  meta: {
+    title: "ROAST",
+  },
   nitro: {
     plugins: ["~/server/index.ts"],
   },
   modules: ["nuxt-quasar-ui"],
   quasar: {
-    /* */
+    plugins: [
+      "BottomSheet",
+      "Dialog",
+      "Loading",
+      "LoadingBar",
+      "Notify",
+      "Dark",
+    ],
   },
   css: [
     "@quasar/extras/material-icons/material-icons.css",

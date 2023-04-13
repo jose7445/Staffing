@@ -1,5 +1,5 @@
 <template>
-  <q-card square bordered class="q-pa-lg shadow-1">
+  <q-card square bordered class="q-pa-lg shadow-1" style="width: 500px">
     <div class="text-h3 q-pa-md text-center text-bold">Hello!</div>
     <div class="text-h4 text-center">Sigin into Your account</div>
     <q-card-section>
@@ -46,7 +46,7 @@
     </q-card-section>
 
     <q-card-section class="text-center q-pa-none">
-      <p class="text-grey-6">Forgot password?</p>
+      <p class="text-grey-6">¿Olvidaste la contraseña?</p>
     </q-card-section>
   </q-card>
 </template>
@@ -82,9 +82,3 @@ export default defineNuxtComponent({
   },
 });
 </script>
-
-<style scoped>
-.q-card {
-  width: 500px;
-}
-</style>

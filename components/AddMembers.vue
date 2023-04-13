@@ -41,9 +41,9 @@
       <q-card-section class="q-pb-none">
         <q-card-actions align="right" class="q-pa-none">
           <q-btn
-            unelevated
+            flat
             label="Cancelar"
-            color="primary"
+            color="black"
             size="md"
             v-close-popup
           ></q-btn>
