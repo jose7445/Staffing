@@ -5,12 +5,13 @@
       bordered
       :rows="members"
       :columns="columns"
-      class="my-sticky-header-table"
-      table-header-class="text-bold"
+      row-key="name"
       separator="cell"
       :filter="filter"
+      class="my-sticky-header-table"
+      table-header-class="text-bold"
       title="Staffing Members"
-      row-key="name"
+      title-class="text-bold"
     >
       <!--Search action-->
       <template v-slot:top-right>
@@ -72,6 +73,14 @@
             ></q-btn>
           </div>
         </q-td>
+      </template>
+
+      <!--No found member message-->
+      <template #no-data>
+        <div class="row items-center q-gutter-x-sm">
+          <q-icon name="warning" color="grey" size="sm" />
+          <div>Miembro no encontrado</div>
+        </div>
       </template>
     </q-table>
   </div>
@@ -246,6 +255,7 @@
 
 <script>
 import { ref } from "vue";
+
 import useQuasar from "quasar/src/composables/use-quasar.js";
 
 const columns = [
@@ -256,28 +266,53 @@ const columns = [
     align: "left",
   },
 
-  { name: "office", label: "Oficina", field: "office", align: "left" },
-
   { name: "name", label: "Nombre", field: "name", align: "left" },
   { name: "lastname", label: "Apellidos", field: "lastname", align: "left" },
-  { name: "stage", label: "Stage", field: "stage", align: "left" },
   {
     name: "companyEmail",
     label: "Email",
     field: "companyEmail",
     align: "left",
   },
+  {
+    name: "tecnology",
+    label: "Tecnologia",
+    field: (row) => row.staffing.tecnologies,
+    align: "left",
+  },
+  {
+    name: "project",
+    label: "Proyecto",
+    align: "left",
+  },
+
+  {
+    name: "project",
+    label: "Inicio del proyecto",
+    align: "left",
+  },
+
+  {
+    name: "project",
+    label: "Final del proyecto",
+    align: "left",
+  },
   { name: "action", label: "Action", field: "action", align: "left" },
 ];
 
 export default defineNuxtComponent({
-  setup() {
+  async setup() {
     const opened = ref(false);
     const add = ref(false);
     const visibility = ref(false);
     const editForm = ref({});
     const membersId = ref([]);
     const $q = useQuasar();
+
+    // Function to get all members
+    const { data: members } = useAsyncData("members", () =>
+      $fetch("/api/staffing/members/")
+    );
 
     // Show update member modal and define object
     function showModalUpdate(props) {
@@ -313,7 +348,7 @@ export default defineNuxtComponent({
     //Function to update a member
     async function updateMember() {
       $q.dialog({
-        message: "Quieres eliminar este miembro de la tabla?",
+        message: "Quieres actualizar este miembro de la tabla?",
         cancel: {
           label: "Cancelar",
           flat: true,
@@ -323,6 +358,7 @@ export default defineNuxtComponent({
           label: "OK",
           color: "primary",
           unelevated: true,
+          focus: false,
         },
       })
         .onOk(async () => {
@@ -332,7 +368,9 @@ export default defineNuxtComponent({
           });
         })
         .onOk(() => {
-          location.reload(true);
+          setTimeout(() => {
+            refreshNuxtData("members");
+          }, 1000);
         })
         .onCancel(() => {
           // console.log('>>>> Cancel')
@@ -367,9 +405,7 @@ export default defineNuxtComponent({
             },
           });
         })
-        .onOk(() => {
-          location.reload();
-        })
+        .onOk(() => {})
         .onCancel(() => {
           // console.log('>>>> Cancel')
         })
@@ -386,6 +422,7 @@ export default defineNuxtComponent({
       editForm,
       visibility,
       membersId,
+      members,
       showModalUpdate,
       showAddMember,
       viewMember,
@@ -395,13 +432,11 @@ export default defineNuxtComponent({
   },
 
   // Function to get all members
-  async asyncData() {
-    const members = await $fetch("/api/staffing/members");
-    return { members };
-  },
+  // async asyncData() {
+  //   const members = await $fetch("/api/staffing/members");
+  //   return { members };
+  // },
 });
-
-refreshNuxtData();
 </script>
 
 <style lang="sass">
