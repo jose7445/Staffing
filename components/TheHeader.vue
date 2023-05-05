@@ -3,7 +3,11 @@
     <q-toolbar>
       <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-      <q-toolbar-title> NTT DATA </q-toolbar-title>
+      <q-toolbar-title>
+        <NuxtLink to="/" class="text-white text-bold"
+          >NTT DATA
+        </NuxtLink></q-toolbar-title
+      >
 
       <NuxtLink to="/login">
         <q-btn flat round color="white" icon="account_circle" />
@@ -11,117 +15,62 @@
     </q-toolbar>
   </q-header>
 
-  <q-drawer v-model="leftDrawerOpen" side="left" bordered overlay>
-    <div class="" style="width: 100%">
+  <div>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      side="left"
+      overlay
+      bordered
+      :breakpoint="100"
+    >
       <q-list padding class="rounded-borders text-primary q-pa-none">
-        <q-item
-          clickable
-          v-ripple
-          :active="link === '/'"
-          @click="link = '/'"
-          active-class="my-menu-link"
-          to="/"
+        <q-expansion-item
+          v-for="menu in menu"
+          expand-separator
+          :label="menu.label"
+          :key="menu.key"
+          :path="menu.path"
+          :header-inset-level="0.1"
         >
-          <q-item-section avatar>
-            <q-icon name="home" />
-          </q-item-section>
-
-          <q-item-section>Home</q-item-section>
-        </q-item>
-
-        <q-item
-          clickable
-          v-ripple
-          :active="link === '/staffing'"
-          @click="link = '/staffing'"
-          active-class="my-menu-link"
-          to="/staffing"
-        >
-          <q-item-section avatar>
-            <q-icon name="groups" />
-          </q-item-section>
-
-          <q-item-section>Miembros Staffing</q-item-section>
-        </q-item>
-
-        <q-item
-          clickable
-          v-ripple
-          :active="link === 'outbox'"
-          @click="link = 'outbox'"
-          active-class="my-menu-link"
-        >
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-
-          <q-item-section>List 2</q-item-section>
-        </q-item>
-
-        <q-item
-          clickable
-          v-ripple
-          :active="link === 'trash'"
-          @click="link = 'trash'"
-          active-class="my-menu-link"
-        >
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-
-          <q-item-section>List 3</q-item-section>
-        </q-item>
-
-        <q-separator spaced />
-
-        <q-item
-          clickable
-          v-ripple
-          :active="link === 'settings'"
-          @click="link = 'settings'"
-          active-class="my-menu-link"
-        >
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-
-          <q-item-section>List 4</q-item-section>
-        </q-item>
-
-        <q-item
-          clickable
-          v-ripple
-          :active="link === 'help'"
-          @click="link = 'help'"
-          active-class="my-menu-link"
-        >
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-
-          <q-item-section>List 5</q-item-section>
-        </q-item>
+          <q-expansion-item
+            v-for="submenu in menu.children"
+            clickable
+            v-ripple
+            expand-separator
+            hide-expand-icon
+            active-class="my-menu-link"
+            :label="submenu.label"
+            :to="`/${submenu.path}`"
+            :separator="submenu.separator"
+            :header-inset-level="0.6"
+          >
+            {{ submenu.label }}
+          </q-expansion-item>
+        </q-expansion-item>
       </q-list>
-    </div>
-  </q-drawer>
+    </q-drawer>
+  </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import data from "../server/utils/modules/data/menu.json";
 
-export default {
+export default defineNuxtComponent({
   setup() {
     const leftDrawerOpen = ref(false);
+    const menu = ref(data);
 
     return {
-      link: ref("inbox"),
+      menu,
+
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
     };
   },
-};
+});
 </script>
 
 <style scoped>
