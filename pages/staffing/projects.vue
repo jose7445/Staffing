@@ -3,5 +3,3 @@
     <StaffingProjectsTable />
   </div>
 </template>
-
-<script></script>

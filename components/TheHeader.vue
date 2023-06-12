@@ -63,7 +63,6 @@ export default defineNuxtComponent({
 
     return {
       menu,
-
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

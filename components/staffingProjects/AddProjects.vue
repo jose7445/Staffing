@@ -1,266 +1,323 @@
 <template>
-  <q-form>
-    <q-stepper v-model="step" ref="stepper" color="primary" animated>
-      <q-step :name="1" title="Datos miembro" icon="settings" :done="step > 1">
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Nombre *"
-                v-model="name"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-        </div>
+  <q-card style="width: 900px; max-width: 100vw; max-height: 100%">
+    <q-card-section>
+      <q-btn
+        round
+        flat
+        dense
+        icon="close"
+        class="float-right"
+        color="grey-8"
+        v-close-popup
+      ></q-btn>
+      <div class="text-h4 text-bold">Añadir Proyecto</div>
+    </q-card-section>
+    <q-separator inset></q-separator>
+    <q-form @submit.prevent.stop="addProject">
+      <q-stepper v-model="step" ref="stepper" color="primary" animated>
+        <!--Project data STEP 1-->
+        <q-step
+          :name="1"
+          title="Datos miembro"
+          icon="settings"
+          :done="step > 1"
+        >
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  label="Nombre *"
+                  v-model="name"
+                  ref="nameRef"
+                  lazy-rules
+                  :rules="nameRules"
+                  hide-bottom-space
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="textarea"
-                dense
-                outlined
-                label="Descripcion *"
-                v-model="description"
-                autogrow
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-        </div>
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="textarea"
+                  dense
+                  outlined
+                  label="Descripcion *"
+                  v-model="description"
+                  autogrow
+                  ref="descriptionRef"
+                  lazy-rules
+                  :rules="nameRules"
+                  hide-bottom-space
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-select
-                type="text"
-                dense
-                outlined
-                label="Estado del proyecto"
-                v-model="status"
-                :options="optionsStatus"
-                emit-value
-                map-options
-              >
-              </q-select>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="number"
-                dense
-                outlined
-                label="Ext Codigo"
-                v-model="extCode"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-select
-                type="text"
-                dense
-                outlined
-                label="Oficina"
-                v-model="office"
-                :options="optionsOffice"
-                emit-value
-                map-options
-              >
-              </q-select>
-            </q-item-section>
-          </q-item>
-        </div>
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-select
+                  type="text"
+                  dense
+                  outlined
+                  label="Estado del proyecto"
+                  v-model="status"
+                  :options="optionsStatus"
+                  emit-value
+                  map-options
+                >
+                </q-select>
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="number"
+                  dense
+                  outlined
+                  label="Ext Codigo"
+                  v-model="extCode"
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-select
+                  type="text"
+                  dense
+                  outlined
+                  label="Oficina"
+                  v-model="office"
+                  :options="optionsOffice"
+                  emit-value
+                  map-options
+                >
+                </q-select>
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Categoria"
-                v-model="category"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Customer"
-                v-model="customer"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-select
-                type="text"
-                dense
-                outlined
-                label="Tipo"
-                v-model="type"
-                :options="optionsTypes"
-                emit-value
-                map-options
-              >
-              </q-select>
-            </q-item-section>
-          </q-item>
-        </div>
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  label="Categoria"
+                  v-model="category"
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  label="Customer"
+                  v-model="customer"
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-select
+                  type="text"
+                  dense
+                  outlined
+                  label="Tipo"
+                  v-model="type"
+                  :options="optionsTypes"
+                  emit-value
+                  map-options
+                >
+                </q-select>
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Tecnologia *"
-                v-model="technology"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="number"
-                dense
-                outlined
-                label="Budget"
-                v-model="budget"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-        </div>
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  label="Tecnologia *"
+                  v-model="technology"
+                  ref="tecnologyRef"
+                  lazy-rules
+                  :rules="nameRules"
+                  hide-bottom-space
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="number"
+                  dense
+                  outlined
+                  label="Budget"
+                  v-model="budget"
+                >
+                </q-input>
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="number"
-                dense
-                outlined
-                label="Duración del proyecto *"
-                v-model="estimatedDuration.duration"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-select
-                type="text"
-                dense
-                outlined
-                label="Unidad"
-                v-model="estimatedDuration.unit"
-                :options="optionsDuration"
-                emit-value
-                map-options
-              >
-              </q-select>
-            </q-item-section>
-          </q-item>
-        </div>
+          <q-stepper-navigation align="right">
+            <q-btn @click="validateStepper" color="primary" label="Continuar" />
+          </q-stepper-navigation>
+        </q-step>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="date"
-                dense
-                outlined
-                label="Fecha de inicio"
-                v-model="startDate"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="date"
-                dense
-                outlined
-                label="Fecha final"
-                v-model="endDate"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-        </div>
+        <!--Calendar projects STEP 2-->
+        <q-step
+          :name="2"
+          title="Deadlines proyectos"
+          icon="calendar_month"
+          :done="step > 2"
+        >
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="number"
+                  dense
+                  outlined
+                  v-model="estimatedDuration.duration"
+                  label="Duracion"
+                  ref="estimatedDurationRef"
+                  lazy-rules
+                  :rules="nameRules"
+                  hide-bottom-space
+                />
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-select
+                  type="text"
+                  dense
+                  outlined
+                  v-model="estimatedDuration.unit"
+                  label="Unidad"
+                  emit-value
+                  map-options
+                  :options="optionsDuration"
+                  ref="estimatedDurationUnitRef"
+                  lazy-rules
+                  :rules="nameRules"
+                  hide-bottom-space
+                />
+              </q-item-section>
+            </q-item>
+          </div>
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="date"
+                  dense
+                  outlined
+                  v-model="startDate"
+                  label="startDate"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="date"
+                  dense
+                  outlined
+                  v-model="endDate"
+                  label="endDate"
+                />
+              </q-item-section>
+            </q-item>
+          </div>
 
-        <div class="row">
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Manager"
-                v-model="manager"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-          <q-item class="col">
-            <q-item-section>
-              <q-input
-                type="text"
-                dense
-                outlined
-                label="Project Lead"
-                v-model="projectLead"
-              >
-              </q-input>
-            </q-item-section>
-          </q-item>
-        </div>
-      </q-step>
+          <q-stepper-navigation align="right">
+            <q-btn
+              flat
+              @click="step = 1"
+              color="primary"
+              label="Volver"
+              class="q-ml-sm"
+            />
+            <q-btn
+              @click="validateStepperTwo"
+              color="primary"
+              label="Continuar"
+            />
+          </q-stepper-navigation>
+        </q-step>
 
-      <q-step
-        :name="2"
-        title="Assignar proyecto"
-        icon="create_new_folder"
-        :done="step > 2"
-      >
-        An ad group contains one or more ads which target a shared set of
-        keywords.
-      </q-step>
+        <!--Owners Data STEP 3-->
+        <q-step
+          :name="3"
+          title="Responsables proyecto"
+          icon="workspaces"
+          :done="step > 3"
+        >
+          <div class="row">
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  v-model="manager"
+                  label="Manager"
+                />
+              </q-item-section>
+            </q-item>
+            <q-item class="col">
+              <q-item-section>
+                <q-input
+                  type="text"
+                  dense
+                  outlined
+                  v-model="projectLead"
+                  label="projectLead"
+                />
+              </q-item-section>
+            </q-item>
+          </div>
 
-      <template v-slot:navigation>
-        <q-stepper-navigation>
-          <q-btn
-            @click="step === 2 ? addProject() : $refs.stepper.next()"
-            color="primary"
-            :label="step === 2 ? 'Enviar' : 'Continue'"
-          />
-          <q-btn
-            v-if="step > 1"
-            flat
-            color="primary"
-            @click="$refs.stepper.previous()"
-            label="Back"
-            class="q-ml-sm"
-          />
-        </q-stepper-navigation>
-      </template>
-    </q-stepper>
-  </q-form>
+          <q-stepper-navigation align="right">
+            <q-btn
+              flat
+              @click="step = 2"
+              color="primary"
+              label="Volver"
+              class="q-ml-sm"
+            />
+            <q-btn
+              @click="step = 3"
+              color="primary"
+              label="Enviar"
+              type="submit"
+            />
+          </q-stepper-navigation>
+        </q-step>
+      </q-stepper>
+    </q-form>
+  </q-card>
 </template>
 <script>
 import { ref } from "vue";
@@ -270,7 +327,14 @@ export default defineNuxtComponent({
   props: {
     projects: Object,
   },
-  setup(props) {
+  setup(props, context) {
+    const $q = useQuasar();
+    const nameRef = ref(null);
+    const descriptionRef = ref(null);
+    const tecnologyRef = ref(null);
+    const estimatedDurationRef = ref(null);
+    const estimatedDurationUnitRef = ref(null);
+    const step = ref(1);
     const name = ref(null);
     const description = ref(null);
     const status = ref(null);
@@ -292,33 +356,99 @@ export default defineNuxtComponent({
     const optionsOffice = props.projects.offices;
 
     async function addProject() {
-      await $fetch("/api/staffing/projects", {
-        method: "POST",
-        body: {
-          name: name.value,
-          description: description.value,
-          status: status.value,
-          extCode: office.value,
-          office: office.value,
-          category: category.value,
-          estimatedDuration: {
-            duration: estimatedDuration.value.duration,
-            unit: estimatedDuration.value.unit,
-          },
-          customer: customer.value,
-          type: type.value,
-          technology: technology.value,
-          budget: budget.value,
-          startDate: startDate.value,
-          endDate: endDate.value,
-          manager: manager.value,
-          projectLead: projectLead.value,
+      $q.dialog({
+        message: "Quieres añadir este proyecto en la tabla?",
+        cancel: {
+          label: "Cancelar",
+          flat: true,
         },
-      });
+        persistent: true,
+        ok: {
+          label: "OK",
+          color: "primary",
+          unelevated: true,
+        },
+      })
+        .onOk(async () => {
+          return await $fetch("/api/staffing/projects", {
+            method: "POST",
+            body: {
+              name: name.value,
+              description: description.value,
+              status: status.value,
+              extCode: office.value,
+              office: office.value,
+              category: category.value,
+              estimatedDuration: {
+                duration: estimatedDuration.value.duration,
+                unit: estimatedDuration.value.unit,
+              },
+              customer: customer.value,
+              type: type.value,
+              technology: technology.value,
+              budget: budget.value,
+              startDate: startDate.value,
+              endDate: endDate.value,
+              manager: manager.value,
+              projectLead: projectLead.value,
+            },
+          })
+            .then((response) =>
+              $q.notify({
+                message: "Proyecto añadido",
+                type: "positive",
+              })
+            )
+            .catch((error) =>
+              $q.notify({
+                message: "Error al añadir el proyecto",
+                type: "negative",
+              })
+            );
+        })
+        .onOk(() => {
+          setTimeout(() => {
+            refreshNuxtData("projects");
+          }, 1000);
+
+          context.emit("close");
+        })
+        .onCancel(() => {
+          // console.log('>>>> Cancel')
+        })
+        .onDismiss(() => {
+          // console.log('I am triggered on both OK and Cancel')
+        });
+    }
+
+    //Function validate stepper
+    function validateStepper() {
+      if (!name.value || !description.value || !technology.value) {
+        nameRef.value.validate();
+        descriptionRef.value.validate();
+        tecnologyRef.value.validate();
+      } else {
+        step.value = 2;
+      }
+    }
+
+    //Function validate stepper
+    function validateStepperTwo() {
+      if (!estimatedDuration.value.duration || !estimatedDuration.value.unit) {
+        estimatedDurationRef.value.validate();
+        estimatedDurationUnitRef.value.validate();
+      } else {
+        step.value = 3;
+      }
     }
 
     return {
-      step: ref(1),
+      nameRef,
+      descriptionRef,
+      tecnologyRef,
+      estimatedDurationRef,
+      estimatedDurationUnitRef,
+      step,
       name,
       description,
       status,
@@ -335,10 +465,13 @@ export default defineNuxtComponent({
       manager,
       projectLead,
       addProject,
+      validateStepper,
+      validateStepperTwo,
       optionsOffice: optionsOffice,
       optionsStatus: getStatus.statuses,
       optionsTypes: getStatus.types,
       optionsDuration: getStatus.durationTypes,
+      nameRules: [(val) => (val && val.length > 0) || "Requeridos"],
     };
   },
 });
