@@ -1,0 +1,11 @@
+[
+  { "label":  "Junior Engineer", "value": "junior-engineer", "options": {} },
+  { "label":  "Engineer", "value": "engineer", "options": {} },
+  { "label":  "Lead Engineer", "value": "lead-engineer", "options": {} },
+  { "label":  "Lead Architect", "value": "lead-architect", "options": {} },
+  { "label":  "Expert Architect", "value": "expert", "options": {} },
+  { "label":  "Chief Architect / Evangelist", "value": "chief-architect", "options": {} },
+  { "label":  "Project Lead", "value": "project-lead", "options": {} },
+  { "label":  "Technical Manager", "value": "technical-manager", "options": {} },
+  { "label":  "Manager", "value": "manager", "options": {} }
+]

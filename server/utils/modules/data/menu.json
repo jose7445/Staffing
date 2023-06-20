@@ -1,0 +1,73 @@
+[
+  {
+    "label":  "Staffing",
+    "key": "staffing",
+    "path": "staffing/",
+    "disabled": false,
+    "icon": true,
+    "access": ["staffing"],
+    "children": [
+      {
+        "label":  "Members",
+        "key": "members",
+        "path": "staffing/members/",
+        "disabled": false,
+        "icon": false
+      },
+      {
+        "label":  "Projects",
+        "key": "projects",
+        "path": "staffing/projects/",
+        "disabled": false,
+        "icon": false
+      }
+    ]
+  },
+  {
+    "label":  "Training",
+    "key": "training",
+    "path": "training/",
+    "disabled": false,
+    "icon": true,
+    "access": ["training"]
+  },
+  {
+    "label":  "Students",
+    "key": "students",
+    "path": "students/",
+    "disabled": false,
+    "icon": true,
+    "access": ["students"]
+  },
+  {
+    "label":  "Recruitment",
+    "key": "recruitment",
+    "path": "recruitment/",
+    "disabled": false,
+    "icon": true,
+    "access": ["recruitment"],
+    "children": [
+      {
+        "label":  "Candidates",
+        "key": "candidates",
+        "path": "recruitment/candidates/",
+        "disabled": false,
+        "icon": false
+      },
+      {
+        "label":  "Quizzes",
+        "key": "quizzes",
+        "path": "recruitment/quizzes/",
+        "disabled": false,
+        "icon": false
+      },
+      {
+        "label":  "Quizzes categories",
+        "key": "quizzes-categories",
+        "path": "recruitment/quizzes/categories/",
+        "disabled": false,
+        "icon": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "label":  "Start", "value": "start", "options": {} },
+  { "label":  "Middle", "value": "middle", "options": {} },
+  { "label":  "End", "value": "end", "options": {} }
+]

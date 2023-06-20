@@ -1,0 +1,44 @@
+{
+  "questions_types": [
+    { "label":  "Single choice", "value": "single-choice", "template": [
+      { "isCorrect":  false, "answer": "" },
+      { "isCorrect":  false, "answer": "" },
+      { "isCorrect":  false, "answer": "" }
+    ] },
+    { "label":  "Multiple choices", "value": "multiple-choice", "template": [
+      { "isCorrect":  false, "answer": "" },
+      { "isCorrect":  false, "answer": "" },
+      { "isCorrect":  false, "answer": "" }
+    ]  },
+    { "label":  "True/False", "value": "true-false", "template": [
+      { "isCorrect":  false, "answer": "Correct" },
+      { "isCorrect":  true, "answer": "Incorrect" }
+    ]  },
+    { "label":  "Descriptive", "value": "descriptive", "template": []  }
+  ],
+  "questions_categories": [
+    { "label":  "JavaScript básico", "value": "javascript-basico", "options": {} },
+    { "label":  "JavaScript intermedio", "value": "javascript-intermedio", "options": {} },
+    { "label":  "JavaScript avanzado", "value": "javascript-avanzado", "options": {} },
+    { "label":  "TypeScript", "value": "typescript", "options": {} },
+    { "label":  "Angular", "value": "angular", "options": {} },
+    { "label":  "React", "value": "react", "options": {} },
+    { "label":  "VueJS", "value": "vuejs", "options": {} },
+    { "label":  "Pensamiento análitico", "value": "pensamiento-analico", "options": {} },
+    { "label":  "Depuración de código", "value": "depuracion-codigo", "options": {} },
+    { "label":  "Pruebas unitarias", "value": "Pruebas unitarias", "options": {} }
+  ],
+  "questionsSet_types": [
+    { "label":  "Fixed", "value": "fixed", "options": {} },
+    { "label":  "Random", "value": "random", "options": {} }
+  ],
+  "security_levels": [
+    { "label":  "Warnings disabled", "value": "disabled", "options": {} },
+    { "label":  "Warnings", "value": "warnings", "options": {} },
+    { "label":  "Terminate", "value": "terminate", "options": {} }
+  ],
+  "timeSettings_publishTypes": [
+    { "label":  "Manual", "value": "manual", "options": {} },
+    { "label":  "Scheduled", "value": "scheduled", "options": {} }
+  ]
+}

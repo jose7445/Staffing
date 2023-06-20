@@ -1,0 +1,5 @@
+[
+  { "label":  "DeX", "key": "dex", "options": {} },
+  { "label":  "ExD", "key": "exd", "options": {} },
+  { "label":  "ExO", "key": "exo", "options": {} }
+]

@@ -1,0 +1,17 @@
+[
+  { "name":  "Single choice", "value": "single-choice", "template": [
+    { "isCorrect":  false, "answer": "" },
+    { "isCorrect":  false, "answer": "" },
+    { "isCorrect":  false, "answer": "" }
+  ] },
+  { "name":  "Multiple choices", "value": "multiple-choice", "template": [
+    { "isCorrect":  false, "answer": "" },
+    { "isCorrect":  false, "answer": "" },
+    { "isCorrect":  false, "answer": "" }
+  ]  },
+  { "name":  "True/False", "value": "true-false", "template": [
+    { "isCorrect":  false, "answer": "Correct" },
+    { "isCorrect":  true, "answer": "Incorrect" }
+  ]  },
+  { "name":  "Descriptive", "value": "descriptive", "template": []  }
+]

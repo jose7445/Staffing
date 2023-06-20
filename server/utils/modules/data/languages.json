@@ -1,0 +1,6 @@
+[
+  { "name":  "Castellano", "value": "es", "options": { "iso": "es_ES"} },
+  { "name":  "English", "value": "en", "options": {  "iso": "en_US" } },
+  { "name":  "Catalán", "value": "ca", "options": {  "iso": "es_CA" } },
+  { "name":  "Euskera", "value": "eu", "options": {  "iso": "es_EU" } }
+]

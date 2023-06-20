@@ -1,0 +1,41 @@
+{
+  "statuses": [
+    { "label":  "Oportunity", "value": "oportunity", "options": {} },
+    { "label":  "Estimating", "value": "estimating", "options": {} },
+    { "label":  "Estimate sended", "value": "estimate-sended", "options": {} },
+    { "label":  "Estimate rejected", "value": "estimate-rejected", "options": {} },
+    { "label":  "Accepted", "value": "accepted", "options": {} },
+    { "label":  "In execution", "value": "in-execution", "options": {} },
+    { "label":  "Ended", "value": "ended", "options": {} }
+  ],
+  "types": [
+    { "label":  "Analysis & Technical", "value": "analysis-technical", "options": {} },
+    { "label":  "App. Maintenance", "value": "app-maintenance", "options": {} },
+    { "label":  "Company Assets", "value": "company-assets", "options": {} },
+    { "label":  "Consortium", "value": "consortium", "options": {} },
+    { "label":  "Development", "value": "development", "options": {} },
+    { "label":  "Functional Consult.", "value": "functional-consult", "options": {} },
+    { "label":  "Hw Sales / Sw License", "value": "HwSales-SwLicense", "options": {} },
+    { "label":  "Market Solutions Impl.", "value": "market-solutions-mpl", "options": {} },
+    { "label":  "MSI Consult/Govern", "value": "msi-consult-govern", "options": {} },
+    { "label":  "Non Typical (Rappel)", "value": "non-typical ", "options": {} },
+    { "label":  "PMO / Project Office", "value": "pmo-project-office", "options": {} },
+    { "label":  "Project Certification", "value": "project-certification", "options": {} },
+    { "label":  "Service Resale", "value": "service-resale", "options": {} },
+    { "label":  "Strategic Planning", "value": "strategic-planning", "options": {} },
+    { "label":  "Tech. Consultancy", "value": "tech-consultancy", "options": {} },
+    { "label":  "Technical Assistance", "value": "technical-assistance", "options": {} },
+    { "label":  "Training to Customer", "value": "training-to-customer", "options": {} }
+  ],
+  "durationTypes": [
+    { "label":  "Days", "value": "days", "options": {} },
+    { "label":  "Weeks", "value": "weeks", "options": {} },
+    { "label":  "Months", "value": "months", "options": {} },
+    { "label":  "Years", "value": "years", "options": {} }
+  ],
+  "assignationsStatusses": [
+    { "label":  "Provission", "value": "provission", "options": {} },
+    { "label":  "Active", "value": "active", "options": {} },
+    { "label":  "Inactive", "value": "inactive", "options": {} }
+  ]
+}
